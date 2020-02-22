@@ -56,12 +56,12 @@ const hitungTotalJarakTempuh = (jamBerangkat, jamSampai) => {
           : (menitKeDetik(10) + sisaDetikKelipatan10) * item
     })
   );
-  const jarakTempuhTiap10MenitSelaluNaik = listJarakTempuhSetelah11Menit.reduce(
+  const jarakTempuhSetelahSebelasMenitAwal = listJarakTempuhSetelah11Menit.reduce(
     (acc, item) => acc + item.jarakTempuh,
     0
   );
 
-  return jarakTempuhSebelasMenitAwal + jarakTempuhTiap10MenitSelaluNaik;
+  return jarakTempuhSebelasMenitAwal + jarakTempuhSetelahSebelasMenitAwal;
 };
 
 // Contoh penggunaan
