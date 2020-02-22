@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "react-responsive-modal";
 
+import haris from "../images/haris.jpg";
 import { getDate, renderHobbies } from "../utils";
 
 const DetailProfil = ({
@@ -19,7 +20,7 @@ const DetailProfil = ({
     <Modal open={open} onClose={onClose}>
       <div>
         <h2>Detail Data</h2>
-        <img alt="gambar-profil" src={profil.photo} />
+        <img alt="gambar-profil" src={haris} width="200px" />
         <p>Name: {profil.name}</p>
         <p>Born Date: {getDate(profil.born_date)}</p>
         <p>Address: {profil.address}</p>

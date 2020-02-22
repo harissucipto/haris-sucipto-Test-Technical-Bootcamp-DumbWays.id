@@ -34,7 +34,7 @@ const AddProfil = ({ listHobbies, open, onClose, handleAdd }) => {
       address,
       hooby_id: hobbies.join(" "),
       hobbiesId: hobbies,
-      photo: "haris.jpg"
+      photo: "../images/haris.jpg"
     };
 
     handleAdd(newData);

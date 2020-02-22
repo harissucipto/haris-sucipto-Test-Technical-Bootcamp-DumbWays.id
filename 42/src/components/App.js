@@ -14,7 +14,7 @@ const profiles = [
     born_date: new Date(1997, 10, 12),
     address: "buru",
     hooby_id: "1 2",
-    photo: "haris.jpg"
+    photo: "../images/haris.jpg"
   },
   {
     id: "2",
@@ -22,7 +22,7 @@ const profiles = [
     born_date: new Date(1997, 10, 12),
     address: "karimun",
     hooby_id: "2 1",
-    photo: "haris.jpg"
+    photo: "../images/haris.jpg"
   }
 ];
 
