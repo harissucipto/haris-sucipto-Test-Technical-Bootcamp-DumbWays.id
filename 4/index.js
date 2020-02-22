@@ -47,14 +47,18 @@ const generateId = () =>
 
 // state
 let hobbieNewProfile = [];
+let nameNewProfile = "";
+let bornDateNewProfile = "";
+let addressNewProfile = "";
+let photoNewProfile = "";
 
 const showListSudents = data => {
   const domList = document.querySelector("#list-students");
 
   const students = data.map(item => {
     return `
-        <div class="card-student" id="student-${item.id}">
-          <div class="box-student" id="student-${item.id}">
+        <div class="card-student" id="student-${String(item.id)}">
+          <div class="box-student" >
             <img src="${item.photo}" width="100%" height="180px" />
             <h2>${item.name}</h2>
             <p>ini</p>
@@ -105,6 +109,7 @@ const editData = idUser => {
 const detailData = idUser => {
   const profil = profiles.find(item => String(item.id) === String(idUser));
 
+  console.log(profil);
   const data = `
       <div id="detail">
         <h2 style="text-align: center;">Detail Data</h2>
@@ -158,24 +163,69 @@ const addHobbies = selectObject => {
 };
 
 const submitNewProfile = () => {
-  console.log(hobbieNewProfile);
+  const dataBaru = {
+    listHobbies: hobbieNewProfile,
+    name: nameNewProfile,
+    bornDate: bornDateNewProfile,
+    address: addressNewProfile,
+    photo: photoNewProfile
+  };
+
+  const updateDataProfiles = [
+    ...profiles,
+    {
+      id: generateId(),
+      name: dataBaru.name,
+      born_date: new Date(dataBaru.bornDate),
+      address: dataBaru.address,
+      hooby_id: dataBaru.length ? dataBaru.listHobbies[0] : "",
+      photo: dataBaru.photo
+    }
+  ];
+
+  profiles = updateDataProfiles;
+  showListSudents(profiles);
+
+  document.querySelector("#add-new").remove();
+};
+
+const handleName = selectObject => {
+  const name = selectObject.value;
+  nameNewProfile = name;
+};
+
+const handleBornDate = selectObject => {
+  const bornDate = selectObject.value;
+  bornDateNewProfile = bornDate;
+};
+
+const handleAddress = selectObject => {
+  const address = selectObject.value;
+  addressNewProfile = address;
+};
+
+const handleAddImage = selectObject => {
+  const value = selectObject.value;
+  console.log(value);
+  console.log(selectObject.files[0]);
+  photoNewProfile = value;
 };
 
 const addProfile = () => {
   const data = `
-   <div>
+   <div id="add-new">
       <h2>Add Profile</h2>
       <label for="name">name:</label><br />
-      <input type="text" id="name" name="name" /><br />
+      <input type="text" id="name" name="name" onchange="handleName(this)" /><br />
 
       <label for="born">Born Date:</label><br />
-      <input type="date" id="born" name="born"  /><br />
+      <input type="date" id="born" name="born"  onchange="handleBornDate(this)"/><br />
 
       <label for="address">Address:</label><br />
-      <input type="text" id="address" name="address"  /><br />
+      <input type="text" id="address" name="address" onchange="handleAddress(this)" /><br />
 
-       <label for="address">Select hobbies:</label><br />
-     <select onchange="addHobbies(this)">
+      <label for="address">Select hobbies:</label><br />
+      <select onchange="addHobbies(this)">
       <option value="0" >select your hobbies</option>
       ${hobby_tb
         .map(item => `<option value="${item.id}">${item.name}</option>`)
@@ -184,6 +234,12 @@ const addProfile = () => {
 
      <div id="list-hobbies-new">
      </div>
+
+      <label for="avatar">Choose a profile picture:</label>
+      <br />
+      <input type="file"
+       id="avatar" name="avatar"
+       accept="image/png, image/jpeg" onchange="handleAddImage(this)"><br/>
 
       <br />
       <input type="submit" value="Submit" onclick="submitNewProfile()" />
