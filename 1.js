@@ -27,8 +27,11 @@ const hitungTotalJarakTempuh = (jamBerangkat, jamSampai) => {
   );
 
   //  sebelum 11 menit kecepatannya masih tetap 6 m/detik.
-  const jarakTempuhSebelum11Menit = hitungJarak(6, menitKeDetik(11));
-  selesihDetikDiantaraJarakTempuh -= menitKeDetik(11);
+
+  const sebelum11menitKeDetik = menitKeDetik(11) - 1; // 10 menit 59 detik
+  const jarakTempuhSebelum11Menit = hitungJarak(6, sebelum11menitKeDetik);
+  selesihDetikDiantaraJarakTempuh -= sebelum11menitKeDetik;
+
   //  setelah 11 menit kecepatannya dinaikkan menjadi tetap 7 m/detik.
   const kecepatanAwal = 7;
   // Demikian 10 menit berikutnya kecepatannya selalu dinaikkan 1 m/detik
@@ -63,6 +66,6 @@ const hitungTotalJarakTempuh = (jamBerangkat, jamSampai) => {
 };
 
 // Contoh penggunaan
-const jamBerangkat = new Date(2019, 02, 22, 10, 25, 21);
-const jamPergi = new Date(2019, 02, 22, 12, 00, 00);
+const jamBerangkat = new Date(2020, 02, 22, 10, 25, 21);
+const jamPergi = new Date(2020, 02, 22, 12, 00, 00);
 console.log(hitungTotalJarakTempuh(jamBerangkat, jamPergi));
