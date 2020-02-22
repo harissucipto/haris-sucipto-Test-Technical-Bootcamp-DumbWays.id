@@ -1,10 +1,10 @@
 import React from "react";
 
-const ActionMenu = ({ openAddProfil }) => {
+const ActionMenu = ({ openAddProfil, openAddHobby }) => {
   return (
     <div>
       <button onClick={openAddProfil}>Add Profile</button>
-      <button>Add Hobby</button>
+      <button onClick={openAddHobby}>Add Hobby</button>
     </div>
   );
 };

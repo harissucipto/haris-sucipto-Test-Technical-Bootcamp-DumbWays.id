@@ -5,6 +5,7 @@ import ListStudents from "./ListStudents";
 import DetailProfil from "./DetailProfil";
 import EditProfil from "./EditProfil";
 import AddProfil from "./AddProfil";
+import AddHobby from "./AddHobby";
 
 const profiles = [
   {
@@ -44,6 +45,7 @@ const App = () => {
   const [idEdit, setIdEdit] = useState(0);
   const [openEdit, setOpenEdit] = useState(false);
   const [openAdd, setOpenAdd] = useState(false);
+  const [openAddHoby, setOpenAddHoby] = useState(false);
 
   const handleOpenDetail = id => {
     setidDetail(String(id));
@@ -81,6 +83,11 @@ const App = () => {
     setStudents(updateProfil);
   };
 
+  const handleAddHoby = newData => {
+    const updateHobbies = [...listHobbies, newData];
+    setHobbies(updateHobbies);
+  };
+
   useEffect(() => {
     const formatDataListStudents = profiles.map(item => ({
       ...item,
@@ -102,7 +109,10 @@ const App = () => {
         <div>
           <h1>Helu School</h1>
         </div>
-        <ActionMenu openAddProfil={() => setOpenAdd(true)} />
+        <ActionMenu
+          openAddProfil={() => setOpenAdd(true)}
+          openAddHobby={() => setOpenAddHoby(true)}
+        />
       </div>
 
       <DetailProfil
@@ -129,6 +139,12 @@ const App = () => {
         open={openAdd}
         onClose={() => setOpenAdd(false)}
         handleAdd={handleAddProfil}
+      />
+
+      <AddHobby
+        open={openAddHoby}
+        handleAddHoby={handleAddHoby}
+        onClose={() => setOpenAddHoby(false)}
       />
 
       <ListStudents
