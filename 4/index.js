@@ -39,7 +39,14 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
   }
 };
 
+const generateId = () =>
+  "_" +
+  Math.random()
+    .toString(36)
+    .substr(2, 9);
+
 // state
+let hobbieNewProfile = [];
 
 const showListSudents = data => {
   const domList = document.querySelector("#list-students");
@@ -68,7 +75,6 @@ const tutupEditData = () => {
 };
 
 const hapusData = id => {
-  console.log(id);
   tutupDetailData();
   const profilesHapus = profiles.filter(item => String(item.id) !== String(id));
   profiles = profilesHapus;
@@ -114,6 +120,73 @@ const detailData = idUser => {
           <p>Tanggal lahir</p>
           <p>${profil.address}</p>
         </div>
+    </div>
+  `;
+
+  document.querySelector("#action").innerHTML = data;
+};
+
+const deleteHobbie = id => {
+  const updateHobbies = hobbieNewProfile.filter(
+    item => String(item) !== String(id)
+  );
+  hobbieNewProfile = updateHobbies;
+
+  console.log(updateHobbies);
+  renderListHobbies();
+};
+
+const renderListHobbies = () => {
+  const domHobbies = hobbieNewProfile.map(item => {
+    return `<li>${
+      hobby_tb.find(({ id }) => String(id) === String(item)).name
+    } <button onclick="deleteHobbie(${item})">x</button></li>`;
+  });
+  const listDomHobbies = `<ol>${domHobbies.join("")}</ol>`;
+
+  document.querySelector("#list-hobbies-new").innerHTML = listDomHobbies;
+};
+
+const addHobbies = selectObject => {
+  var value = selectObject.value;
+  if (value === 0) return;
+
+  if (hobbieNewProfile.some(item => String(item) === String(value))) return;
+
+  hobbieNewProfile.push(String(value));
+  renderListHobbies();
+};
+
+const submitNewProfile = () => {
+  console.log(hobbieNewProfile);
+};
+
+const addProfile = () => {
+  const data = `
+   <div>
+      <h2>Add Profile</h2>
+      <label for="name">name:</label><br />
+      <input type="text" id="name" name="name" /><br />
+
+      <label for="born">Born Date:</label><br />
+      <input type="date" id="born" name="born"  /><br />
+
+      <label for="address">Address:</label><br />
+      <input type="text" id="address" name="address"  /><br />
+
+       <label for="address">Select hobbies:</label><br />
+     <select onchange="addHobbies(this)">
+      <option value="0" >select your hobbies</option>
+      ${hobby_tb
+        .map(item => `<option value="${item.id}">${item.name}</option>`)
+        .join("")}
+     </select>
+
+     <div id="list-hobbies-new">
+     </div>
+
+      <br />
+      <input type="submit" value="Submit" onclick="submitNewProfile()" />
     </div>
   `;
 
