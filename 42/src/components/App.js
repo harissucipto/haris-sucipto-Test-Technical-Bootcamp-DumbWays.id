@@ -4,6 +4,7 @@ import ActionMenu from "./ActionMenu";
 import ListStudents from "./ListStudents";
 import DetailProfil from "./DetailProfil";
 import EditProfil from "./EditProfil";
+import AddProfil from "./AddProfil";
 
 const profiles = [
   {
@@ -42,6 +43,7 @@ const App = () => {
   const [openDetail, setOpenDetail] = useState(false);
   const [idEdit, setIdEdit] = useState(0);
   const [openEdit, setOpenEdit] = useState(false);
+  const [openAdd, setOpenAdd] = useState(false);
 
   const handleOpenDetail = id => {
     setidDetail(String(id));
@@ -74,6 +76,11 @@ const App = () => {
     setStudents(updateStudents);
   };
 
+  const handleAddProfil = newData => {
+    const updateProfil = [...listStudents, newData];
+    setStudents(updateProfil);
+  };
+
   useEffect(() => {
     const formatDataListStudents = profiles.map(item => ({
       ...item,
@@ -95,7 +102,7 @@ const App = () => {
         <div>
           <h1>Helu School</h1>
         </div>
-        <ActionMenu />
+        <ActionMenu openAddProfil={() => setOpenAdd(true)} />
       </div>
 
       <DetailProfil
@@ -115,6 +122,13 @@ const App = () => {
         listStudent={listStudents}
         listHobbies={listHobbies}
         handleEdit={handleEditStudents}
+      />
+
+      <AddProfil
+        listHobbies={listHobbies}
+        open={openAdd}
+        onClose={() => setOpenAdd(false)}
+        handleAdd={handleAddProfil}
       />
 
       <ListStudents

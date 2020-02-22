@@ -1,9 +1,9 @@
 import React from "react";
 
-const ActionMenu = () => {
+const ActionMenu = ({ openAddProfil }) => {
   return (
     <div>
-      <button>Add Profile</button>
+      <button onClick={openAddProfil}>Add Profile</button>
       <button>Add Hobby</button>
     </div>
   );

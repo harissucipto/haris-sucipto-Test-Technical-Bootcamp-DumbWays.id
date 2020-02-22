@@ -1,16 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Modal from "react-responsive-modal";
+import shortId from "shortid";
 
 import { renderHobbies } from "../utils";
 
-const EditProfil = ({
-  id,
-  listStudent,
-  listHobbies,
-  open,
-  onClose,
-  handleEdit
-}) => {
+const AddProfil = ({ listHobbies, open, onClose, handleAdd }) => {
   const [name, setName] = useState("");
   // const [image, setImage] = useState("");
   const [bornDate, setBornDate] = useState(null);
@@ -34,7 +28,7 @@ const EditProfil = ({
 
   const handleSubmit = evt => {
     const newData = {
-      id,
+      id: shortId(),
       name,
       born_date: new Date(bornDate),
       address,
@@ -43,24 +37,14 @@ const EditProfil = ({
       photo: "haris.jpg"
     };
 
-    handleEdit(newData);
+    handleAdd(newData);
     onClose();
   };
-
-  useEffect(() => {
-    const profil = listStudent.find(item => String(item.id) === String(id));
-    if (profil) {
-      setName(profil.name);
-      setBornDate(new Date(profil.born_date));
-      setAddress(profil.address);
-      setHobbies(profil.hobbiesId);
-    }
-  }, [id, listStudent]);
 
   return (
     <Modal open={open} onClose={onClose}>
       <div>
-        <h2>Edit Data</h2>
+        <h2>Tambah Data</h2>
         <p>Name</p>
         <input
           value={name}
@@ -105,4 +89,4 @@ const EditProfil = ({
   );
 };
 
-export default EditProfil;
+export default AddProfil;
