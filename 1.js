@@ -26,13 +26,12 @@ const hitungTotalJarakTempuh = (jamBerangkat, jamSampai) => {
     jamSampai
   );
 
-  //  sebelum 11 menit kecepatannya masih tetap 6 m/detik.
+  //  11 menit awal kecepatannya masih tetap 6 m/detik.
+  const sebelasMenitAwalKeDetik = menitKeDetik(11);
+  const jarakTempuhSebelasMenitAwal = hitungJarak(6, sebelasMenitAwalKeDetik);
 
-  const sebelum11menitKeDetik = menitKeDetik(11) - 1; // 10 menit 59 detik
-  const jarakTempuhSebelum11Menit = hitungJarak(6, sebelum11menitKeDetik);
-  selesihDetikDiantaraJarakTempuh -= sebelum11menitKeDetik;
-
-  //  setelah 11 menit kecepatannya dinaikkan menjadi tetap 7 m/detik.
+  //  Tetapi sebelas menit kemudian, kecepatannya dinaikkan 1 m/detik sehingga kecepatannya menjadi tetap 7 m/detik.
+  selesihDetikDiantaraJarakTempuh -= sebelasMenitAwalKeDetik;
   const kecepatanAwal = 7;
   // Demikian 10 menit berikutnya kecepatannya selalu dinaikkan 1 m/detik
   const kelipatan10 = Math.floor(
@@ -62,7 +61,7 @@ const hitungTotalJarakTempuh = (jamBerangkat, jamSampai) => {
     0
   );
 
-  return jarakTempuhSebelum11Menit + jarakTempuhTiap10MenitSelaluNaik;
+  return jarakTempuhSebelasMenitAwal + jarakTempuhTiap10MenitSelaluNaik;
 };
 
 // Contoh penggunaan
